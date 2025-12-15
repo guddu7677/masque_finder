@@ -49,7 +49,7 @@ class _LocationPermisionState extends State<LocationPermision> {
       bottomNavigationBar: BottomBarButton(
         text: "Allow Location",
         onTap: () {
-          Navigator.pushNamed(context, "/LocationPermision");
+          Navigator.pushNamed(context, "/MainScreen");
         },
       ),
     );

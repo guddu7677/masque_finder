@@ -7,9 +7,33 @@ class AppTextstyle {
     fontFamily:AppFonts.sourceSans ,
     fontSize: 12.5,color: Colors.white,fontWeight: FontWeight.w600
   );
+  static const TextStyle sem700White14 = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 12.5,color: Colors.white,fontWeight: FontWeight.w700
+  );
+    static const TextStyle regular12white = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 11,color: Colors.white,fontWeight: FontWeight.normal
+  ); 
+   static const TextStyle regular12black = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 11,color: Colors.black,fontWeight: FontWeight.normal
+  ); 
+   static const TextStyle regular14white = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 12.5,color: Colors.white,fontWeight: FontWeight.normal
+  ); 
    static const TextStyle semiblack14 = TextStyle(
     fontFamily:AppFonts.sourceSans ,
     fontSize: 12.5,color: Colors.black,fontWeight: FontWeight.w600
+  );
+   static const TextStyle green14bold = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 12.5,color: Color(0XFF16302C),fontWeight: FontWeight.bold
+  );
+   static const TextStyle green14semi = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 12.5,color: Color(0XFF16302C),fontWeight: FontWeight.w600
   );
    static const TextStyle boldblack14 = TextStyle(
     fontFamily:AppFonts.sourceSans ,
@@ -47,5 +71,10 @@ class AppTextstyle {
     fontFamily:AppFonts.sourceSans ,
     fontSize: 14.5,color: Colors.white,fontWeight: FontWeight.w700
   );
+   static const TextStyle black500s12 = TextStyle(
+    fontFamily:AppFonts.sourceSans ,
+    fontSize: 11,color: Colors.black,fontWeight: FontWeight.w500
+  );
+
 
 }

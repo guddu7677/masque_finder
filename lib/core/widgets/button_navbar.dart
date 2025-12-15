@@ -5,16 +5,16 @@ import 'package:masque_finder/core/constats/app_textstyle.dart';
 class BottomBarButton extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;
-
-  BottomBarButton({required this.text, this.onTap});
+  final Color? color;
+  BottomBarButton({required this.text, this.onTap,this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       decoration: BoxDecoration(
-        gradient:
-            AppColors.appBackGroundColor, 
-      ),
+        color: color,
+        gradient: AppColors.appBackGroundColor),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -24,7 +24,7 @@ class BottomBarButton extends StatelessWidget {
               height: 44,
               width: double.infinity,
               decoration: BoxDecoration(
-                
+
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20),
               ),

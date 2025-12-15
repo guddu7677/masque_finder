@@ -20,8 +20,12 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(gradient: AppColors.appBackGroundColor),
-      child: AppBar(scrolledUnderElevation: 0,
+      decoration: BoxDecoration(
+        color: bgcolor,
+        gradient: AppColors.appBackGroundColor),
+      child: AppBar(
+        
+        scrolledUnderElevation: 0,
         title: Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Text(text, style: AppTextstyle.black700f16),

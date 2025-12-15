@@ -30,7 +30,7 @@ class UniverselTextfield extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 12,bottom: 22),
+            padding: const EdgeInsets.only(left: 12,bottom: 16),
             child: TextField(
               textAlign: TextAlign.start,  
               decoration: InputDecoration(

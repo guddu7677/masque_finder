@@ -84,7 +84,7 @@ class _OtpScreenState extends State<OtpScreen> {
       bottomNavigationBar: BottomBarButton(
         text: "Verify OTP",
         onTap: () {
-          Navigator.pushNamed(context, "/ProfileScreen");
+          Navigator.pushNamed(context, "/RegisterProfileScreen");
         },
       ),
     );
