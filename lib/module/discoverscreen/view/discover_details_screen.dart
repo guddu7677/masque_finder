@@ -17,8 +17,7 @@ class _DiscoverDetailsScreenState extends State<DiscoverDetailsScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   
-  // Single state variable to control both icons and view
-  bool isListView = true; // true = list view, false = map view
+  bool isListView = true;
 
   @override
   void dispose() {
@@ -32,7 +31,6 @@ class _DiscoverDetailsScreenState extends State<DiscoverDetailsScreen> {
       isListView = !isListView;
     });
     
-    // Navigate back to map view when switching from list view
     if (!isListView) {
       Navigator.pop(context);
     }
@@ -197,21 +195,30 @@ class _DiscoverDetailsScreenState extends State<DiscoverDetailsScreen> {
               ),
               child: Row(
                 children: [
-                  // Filter icon - tapping switches view
                   GestureDetector(
                     onTap: _toggleView,
-                    child: Image.asset(
-                      isListView ? appSvgimge.filter2 : appSvgimge.filtericon,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle
+                      ),
+                      child: Image.asset(
+                        isListView ? appSvgimge.filtericon : appSvgimge.filtericon,
+                      ),
                     ),
                   ),
 
                   const SizedBox(width: 6),
                   
-                  // Map icon - tapping switches view
                   GestureDetector(
                     onTap: _toggleView,
-                    child: Image.asset(
-                      isListView ? appSvgimge.mapicon : appSvgimge.mapicon2,
+                    child: Container(height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: Image.asset(
+                        isListView ? appSvgimge.mapicon : appSvgimge.mapicon,
+                      ),
                     ),
                   ),
                 ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:masque_finder/core/constats/app_images.dart';
 import 'package:masque_finder/core/constats/app_textstyle.dart';
-import 'package:masque_finder/core/widgets/appbar_widget.dart';
 import 'package:masque_finder/core/widgets/appbarwhite_widget.dart';
+import 'package:masque_finder/module/profilescreen/view/about_us_screen.dart';
 import 'package:masque_finder/module/profilescreen/view/faqs_screen.dart';
 import 'package:masque_finder/module/profilescreen/view/personal_information_screen.dart';
 import 'package:masque_finder/module/profilescreen/view/termcondition_screen.dart';
@@ -105,7 +105,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _buildRowContainer(
                     icon: appSvgimge.aboutusicon,
                     text: "About Us",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => AboutUsScreen()),
+                      );
+                    },
                     showDivider: true,
                   ),
                   _buildRowContainer(
@@ -114,9 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => FaqsScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => FaqsScreen()),
                       );
                     },
                     showDivider: true,

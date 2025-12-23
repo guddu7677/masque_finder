@@ -85,7 +85,7 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             decoration: BoxDecoration(
                               color: const Color(0xFFF7EDAC),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(16),
                             ),
                             child: const Center(
                               child: Text(

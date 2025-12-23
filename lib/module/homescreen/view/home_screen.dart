@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildNearbyTitle(),
               _buildFilterTabs(),
 
-              const SizedBox(height: 8),
+             SizedBox(height: 8),
               MosqueCard(
                 ontap: () {
                   Navigator.pushNamed(context, "/CardDetailsScreen");
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(16),
               color: AppColors.primaryColor.withOpacity(0.9),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.only(top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 58,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(20),
               color: AppColors.yellowcolor.withOpacity(0.5),
             ),
             child: Text("See All", style: AppTextstyle.regular12black),

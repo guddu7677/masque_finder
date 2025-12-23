@@ -16,8 +16,8 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-  
-  bool isListView = false;
+
+  bool isMapView = true;
 
   @override
   void dispose() {
@@ -26,21 +26,21 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     super.dispose();
   }
 
-  void _toggleView() {
-    setState(() {
-      isListView = !isListView;
-    });
+  void _showMap() {
+    setState(() => isMapView = true);
+  }
+
+  void _showList() {
+    setState(() => isMapView = false);
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: isListView ? _buildListView() : _buildMapView(),
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: isMapView ? _buildMapView() : _buildListView(),
       ),
     );
   }
@@ -61,27 +61,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           bottom: 10,
           left: 10,
           right: 10,
-          child: Column(
-            children: [
-              MosqueCard(
-                ontap: () {
-                  Navigator.pushNamed(context, "/CardDetailsScreen");
-                },
-                backgroundImage: AppImages.homeBg,
-                type: "Mosque",
-                title: "Jamia Mosque",
-                distance: "453 m",
-                location: "Noida Sector 63, Uttar Pradesh",
-              ),
-              WeatherWidget(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                ),
-                color: Colors.white,
-              ),
-            ],
-          ),
+          child: _buildCard(),
         ),
       ],
     );
@@ -94,76 +74,34 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         const SizedBox(height: 8),
         _buildFilterTabs(),
         Expanded(
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            children: [
-              Column(
-                children: [
-                  MosqueCard(
-                    ontap: () {
-                      Navigator.pushNamed(context, "/CardDetailsScreen");
-                    },
-                    backgroundImage: AppImages.homeBg,
-                    type: "Mosque",
-                    title: "Jamia Mosque",
-                    distance: "453 m",
-                    location: "Noida Sector 63, Uttar Pradesh",
-                  ),
-                  WeatherWidget(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                      bottomLeft: Radius.circular(8),
-                    ),
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Column(
-                children: [
-                  MosqueCard(
-                    ontap: () {
-                      Navigator.pushNamed(context, "/CardDetailsScreen");
-                    },
-                    backgroundImage: AppImages.homeBg,
-                    type: "Mosque",
-                    title: "Jama Masjid",
-                    distance: "1.2 km",
-                    location: "Delhi, India",
-                  ),
-                  WeatherWidget(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                      bottomLeft: Radius.circular(8),
-                    ),
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Column(
-                children: [
-                  MosqueCard(
-                    ontap: () {
-                      Navigator.pushNamed(context, "/CardDetailsScreen");
-                    },
-                    backgroundImage: AppImages.homeBg,
-                    type: "Mosque",
-                    title: "Makkah Masjid",
-                    distance: "2.5 km",
-                    location: "Hyderabad, India",
-                  ),
-                  WeatherWidget(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                      bottomLeft: Radius.circular(8),
-                    ),
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ],
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            itemCount: 3,
+            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            itemBuilder: (context, index) => _buildCard(),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCard() {
+    return Column(
+      children: [
+        MosqueCard(
+          ontap: () => Navigator.pushNamed(context, "/CardDetailsScreen"),
+          backgroundImage: AppImages.homeBg,
+          type: "Mosque",
+          title: "Jamia Mosque",
+          distance: "453 m",
+          location: "Noida Sector 63, Uttar Pradesh",
+        ),
+        const WeatherWidget(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(8),
+            bottomRight: Radius.circular(8),
+          ),
+          color: Colors.white,
         ),
       ],
     );
@@ -172,88 +110,104 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget _buildTopBar() {
     return Container(
       height: 125,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      padding:  EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: AppColors.primaryColor,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(8),
           bottomRight: Radius.circular(8),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: EdgeInsets.only(top: 40),
         child: Row(
           children: [
-            Expanded(
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  focusNode: _searchFocusNode,
-                  readOnly: false,
-                  onTap: () {
-                    FocusScope.of(context).requestFocus(_searchFocusNode);
-                  },
-                  onChanged: (value) {},
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Search Placeholder",
-                    hintStyle: AppTextstyle.black14,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFF3EC67B),
-                        ),
-                        child: const Icon(
-                          Icons.search,
-                          size: 17,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 8),
-            Container(
-              height: 40,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: _toggleView,
-                    child: Image.asset(
-                      isListView ? appSvgimge.filter2 : appSvgimge.filtericon,
-                      color: isListView ? AppColors.yellowcolor : Colors.grey,
-                    ),
-                  ),
-
-                  const SizedBox(width: 6),
-                  
-                  GestureDetector(
-                    onTap: _toggleView,
-                    child: Image.asset(
-                      isListView ? appSvgimge.mapicon : appSvgimge.mapicon2,
-                      color: isListView ? Colors.grey : AppColors.yellowcolor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Expanded(child: _buildSearchField()),
+             SizedBox(width: 8),
+            _buildToggleIcons(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+        controller: _searchController,
+        focusNode: _searchFocusNode,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Start Your Search",
+          hintStyle: AppTextstyle.black14,
+          contentPadding: EdgeInsets.symmetric(vertical: 14),
+          prefixIcon: _circleIcon(Icons.search),
+        ),
+      ),
+    );
+  }
+
+  Widget _circleIcon(IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFF3EC67B),
+        ),
+        child: Icon(icon, size: 16, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildToggleIcons() {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          _toggleIcon(
+            isActive: !isMapView,
+            onTap: _showList,
+            icon: appSvgimge.filtericon,
+          ),
+          const SizedBox(width: 6),
+          _toggleIcon(
+            isActive: isMapView,
+            onTap: _showMap,
+            icon: appSvgimge.mapicon,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _toggleIcon({
+    required bool isActive,
+    required VoidCallback onTap,
+    required String icon,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isActive ? AppColors.yellowcolor : Colors.grey[300],
+        ),
+        child: Image.asset(
+          icon,
+          color: isActive ? Colors.white : Colors.grey,
         ),
       ),
     );

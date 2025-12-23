@@ -38,10 +38,8 @@ class appSvgimge{
     static const String  halfmoon = "assets/svg/halfmoon.png";
     static const String  tickIcon = "assets/svg/icon.png";
     static const String  tickIconyellow = "assets/svg/ticki.png";
-    static const String  mapicon = "assets/svg/mapicon1.png";
-    static const String  filtericon = "assets/svg/filterIcon.png";
-    static const String  filter2 = "assets/svg/filter2.png";
-    static const String  mapicon2 = "assets/svg/mapimg.png";
+    static const String  filtericon = "assets/svg/FilterIcon.png";
+    static const String  mapicon = "assets/svg/map.png";
     static const String  profileInfo = "assets/svg/profileinfo.png";
     static const String  termicon = "assets/svg/term.png";
     static const String  facqicon = "assets/svg/facq.png";

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:masque_finder/core/constats/app_colors.dart';
 import 'package:masque_finder/core/constats/app_images.dart';
 import 'package:masque_finder/core/constats/app_textstyle.dart';
 import 'package:masque_finder/core/widgets/appbar_widget.dart';
 import 'package:masque_finder/core/widgets/button_navbar.dart';
+import 'package:masque_finder/module/authentication/provider/auth_provider.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -19,7 +22,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(text: 'OTP',),
+      appBar: GradientAppBar(text: 'OTP'),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -27,7 +30,7 @@ class _OtpScreenState extends State<OtpScreen> {
         child: SafeArea(
           top: false,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,35 +46,64 @@ class _OtpScreenState extends State<OtpScreen> {
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      Icon(Icons.edit, color: AppColors.greencolor, size: 16),
-                      SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          "Edit Mobile Number",
-                          style: AppTextstyle.boldblack14,
-                          overflow: TextOverflow.ellipsis, 
-                        ),
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            color: AppColors.greencolor,
+                            size: 16,
+                          ),
+                          Container(
+                            width: 16,
+                            height: 1,
+                            color: AppColors.greencolor,
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Edit Mobile Number",
+                            strutStyle: const StrutStyle(
+                              height: 1,
+                              forceStrutHeight: true,
+                            ),
+                            style: AppTextstyle.boldblack14.copyWith(height: 1),
+                          ),
+                          Container(height: 1, width: 115, color: Colors.black),
+                        ],
                       ),
                     ],
                   ),
+
                   SizedBox(height: 16),
                   Pinput(
                     controller: pinputController,
                     length: 6,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     defaultPinTheme: PinTheme(
                       height: 50,
                       width: 50,
-                      textStyle: TextStyle(fontSize: 20, color: Colors.black),
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
                       decoration: BoxDecoration(
                         border: Border.all(color: AppColors.greencolor),
                         shape: BoxShape.circle,
                       ),
                     ),
                   ),
+
                   SizedBox(height: 16),
                   Row(
                     children: [
-                      Text("59sec remaining", style: AppTextstyle.black14),
+                      Text("59s remaining", style: AppTextstyle.black14),
                       Text(". Resend", style: AppTextstyle.semiblack14),
                     ],
                   ),
@@ -84,7 +116,7 @@ class _OtpScreenState extends State<OtpScreen> {
       bottomNavigationBar: BottomBarButton(
         text: "Verify OTP",
         onTap: () {
-          Navigator.pushNamed(context, "/RegisterProfileScreen");
+          context.read<AuthNavigationProvider>().goToProfile(context);
         },
       ),
     );

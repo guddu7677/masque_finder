@@ -33,7 +33,7 @@ class AppbarwhiteWidget extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.all(8),
+          padding:  EdgeInsets.all(8),
           child: Container(
             height: 38,
             width: 38,
@@ -45,7 +45,7 @@ class AppbarwhiteWidget extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: Center(child: Icon(Icons.arrow_back, color: Colors.black)),
             ),
           ),
         ),

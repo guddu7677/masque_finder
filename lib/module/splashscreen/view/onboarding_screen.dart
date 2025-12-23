@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masque_finder/core/constats/app_colors.dart';
 import 'package:masque_finder/core/constats/app_images.dart';
 import 'package:masque_finder/core/constats/app_textstyle.dart';
 import 'package:masque_finder/module/splashscreen/widgets/slide_continue.dart';
@@ -41,7 +40,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Container(
                     height: 240,
                     decoration: BoxDecoration(
-                      gradient: AppColors.appBackGroundColor,
+                      gradient: LinearGradient(colors: [
+                        Color(0XFFF7EDAC).withOpacity(0.6),
+                        Color(0XFFC3F1C6).withOpacity(0.6),
+                      ]),
                       borderRadius:  BorderRadius.only(
                         topRight: Radius.circular(16),
                         topLeft: Radius.circular(16),

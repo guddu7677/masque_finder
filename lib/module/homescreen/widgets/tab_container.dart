@@ -14,7 +14,7 @@ class tabContainer extends StatelessWidget {
       height: 26,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
         color:colorc
       ),
       child: Center(child: Text(text, style: AppTextstyle.black500s12)),

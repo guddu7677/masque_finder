@@ -3,6 +3,9 @@ import 'package:masque_finder/core/constats/app_colors.dart';
 import 'package:masque_finder/core/constats/app_images.dart';
 import 'package:masque_finder/core/constats/app_textstyle.dart';
 import 'package:masque_finder/core/widgets/button_navbar.dart';
+import 'package:masque_finder/module/authentication/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +15,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 46,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color:AppColors.greencolor),
+                    border: Border.all(color: AppColors.greencolor),
                   ),
                   child: Row(
                     children: [
@@ -60,8 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(width: 8),
                       Expanded(
                         child: TextField(
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
+                          controller: _phoneController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(10),
+                          ],
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Enter Mobile Number",
                             hintStyle: TextStyle(
@@ -83,7 +99,16 @@ class _LoginScreenState extends State<LoginScreen> {
       bottomNavigationBar: BottomBarButton(
         text: "Continue",
         onTap: () {
-          Navigator.pushNamed(context, "/OtpScreen");
+          if (_phoneController.text.length >= 10) {
+            context.read<AuthNavigationProvider>().goToOtp(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+      content: Text('Please enter a 10 digit mobile number'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         },
       ),
     );
